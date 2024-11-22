@@ -4,8 +4,6 @@
 #include <map>
 #include <fstream>
 using namespace std;
-time_t timestamp;
-
 
 int main() {
 	map<string, double> income;
@@ -17,7 +15,7 @@ int main() {
 	cout << "===== Financial Tracker =====" << endl;
 	cout << "Input Username: ";
 	getline(cin, name);
-	cout << "Input Date (dd/mm/yy): ";
+	cout << "Input Date (Please use this format: dd-mm-yy): ";
 	cin.ignore();
 	getline(cin, date);
 	cout << "\nWelcome, " << name << "! " << "What Would you like to do? " << endl;
@@ -54,9 +52,19 @@ int main() {
 
 		case 'c':
 		case 'C':
-			cout << "Financial Report";
+			cout << "\nFinancial Report";
 
-			cout << "Would you like to save this report? Y/N\nInput: ";
+			cout << "\n===== Income Report =====\n";
+			for (const auto& item : income) {
+				cout << "Source: " << item.first << " | Amount: " << fixed << setprecision(2) << item.second << endl;
+			}
+
+			cout << "\n===== Expense Report =====\n";
+			for (const auto& item : expenses) {
+				cout << "Expense: " << item.first << " | Amount: " << fixed << setprecision(2) << item.second << endl;
+			}
+
+			cout << "\nWould you like to save this report? Y/N\nInput: ";
 			cin >> select2;
 
 			if (select2 == 'Y' || select2 == 'y')
@@ -72,7 +80,6 @@ int main() {
 					for (const auto& item : income) {
 						report << item.first << ": " << item.second << endl;
 					}
-
 					report << "\n===== Expense Report =====\n";
 					for (const auto& item : expenses) {
 						report << item.first << ": " << item.second << endl;
